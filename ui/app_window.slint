@@ -1,0 +1,26 @@
+import {VerticalBox } from "std-widgets.slint";
+import { Button } from "button.slint";
+
+export component AppWindow inherits Window {
+    title: "snake";
+    icon: @image-url("img/snake.png");
+    min-width: 960px;
+    max-width: 1024px;
+    min-height: 540px;
+    max-height: 640px;
+    background: @linear-gradient(-45deg,#42abdb,#0246e4,#5f3ef5);
+
+    VerticalLayout{
+        width: 180px;
+        height: 280px;
+        x: (self.width - self.width)/2;
+        y: (self.height - self.height)/2;
+        spacing: 10px;
+        padding: 10px;
+
+        Button{text: "开始游戏";}
+        Button{text: "游戏设置";}
+        Button{text: "关于游戏";}
+    }
+    
+}
