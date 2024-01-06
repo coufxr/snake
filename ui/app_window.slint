@@ -1,26 +1,47 @@
-import {VerticalBox } from "std-widgets.slint";
+import { VerticalBox, SpinBox ,ComboBox,Slider } from "std-widgets.slint";
+
 import { Button } from "button.slint";
+import { RangeSlider } from "range_slider.slint";
 
 export component AppWindow inherits Window {
     title: "snake";
     icon: @image-url("img/snake.png");
-    min-width: 960px;
-    max-width: 1024px;
-    min-height: 540px;
-    max-height: 640px;
-    background: @linear-gradient(-45deg,#42abdb,#0246e4,#5f3ef5);
-
-    VerticalLayout{
-        width: 180px;
-        height: 280px;
-        x: (self.width - self.width)/2;
-        y: (self.height - self.height)/2;
-        spacing: 10px;
-        padding: 10px;
-
-        Button{text: "开始游戏";}
-        Button{text: "游戏设置";}
-        Button{text: "关于游戏";}
+    width: 1024px;
+    height: 640px;
+    Image {
+        image-fit:fill;
+        image-rendering:pixelated;
+        source: @image-url("img/yewanxingkongshan_5k.jpg");
+        width: parent.width;
+        height: parent.height;
     }
+    VerticalLayout {
+        width: 240px;
+        height: 480px;
+        x: parent.width/2 - self.width/2;
+        y: parent.height/2 - self.height/2;
+
+        VerticalLayout{
+            width: parent.width;
+            Text {
+                x:parent.width/2 - self.width/2;
+                width: 180px;
+                text: "SNAKE";
+                font-size: 48px;
+            }
+        }
+        VerticalLayout{
+            width: parent.width;
+            height: 60%;
+            spacing: 10px;
+            
+            RangeSlider{text: "宽度选择:"; value:40; text_color: #69eb7f;}
+            RangeSlider{text: "高度选择:"; value:40; text_color: #69eb7f;}
+            Button{text: "开始游戏";}
+            Button{text: "游戏设置";}
+            Button{text: "关于游戏";}
+        }
+    }
+    
     
 }

@@ -1,0 +1,86 @@
+export component RangeSlider  {
+    // 带有文字的 Slider
+    in property <string> text;
+    in property<float> max_num: 100;
+    in property<float> min_num: 0;
+    in property <int> text_size: 10;
+    in property <color> text_color: #000000;
+    in property <int> title_size: 14;
+    in property <int> spacing: 4;
+    in property <int> slider_height: 8;
+
+    in-out property<float> value;
+
+    min-height: 18px;
+    min-width: 200px;
+    horizontal-stretch: 1;
+    vertical-stretch: 0;
+
+    VerticalLayout {
+        padding: 0px;
+        spacing: spacing * 1px;
+        HorizontalLayout {
+            Text {
+                font-size: title_size * 1px;
+                text: text;
+                color: text_color;
+            }
+            // 中间的间隔
+            Rectangle {}
+            Text {
+                font-size: title_size * 1px;
+                text: root.value;
+                color: text_color;
+            }
+        }
+        HorizontalLayout {
+            Rectangle{
+                height: slider_height * 1px;
+                width: parent.width;
+                background: touch.pressed ? #eee: #ddd;
+                border-width: 1px;
+                border-color: self.background.darker(25%);
+
+                Rectangle {
+                    z: 3;
+                    width: parent.width*0.02;
+                    height: parent.height;
+                    border-width: 1px;
+                    background: touch.pressed ? #0000ff : #90badd;
+                    border-color: self.background.darker(15%);
+                    x: (parent.width - self.width) * (root.value - min_num)/(max_num - min_num);
+
+                    touch := TouchArea {
+                        moved => {
+                            if (self.enabled && self.pressed) {
+                                root.value = ceil(max(
+                                    min_num, 
+                                    min(
+                                        max_num,
+                                        (root.value + (self.mouse-x - self.pressed-x) * (max_num - min_num) / root.width)
+                                    )
+                                ));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        HorizontalLayout{
+            width: parent.width;
+            Text {
+                font-size: text_size * 1px;
+                text: min_num;
+                color: text_color;
+            }
+            // 中间的间隔
+            Rectangle {}
+            Text {
+                font-size: text_size * 1px;
+                text: max_num;
+                color: text_color;
+            }
+        }
+    }
+    
+}
