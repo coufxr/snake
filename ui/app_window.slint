@@ -1,13 +1,15 @@
-import { VerticalBox, SpinBox ,ComboBox,Slider } from "std-widgets.slint";
-
 import { Button } from "button.slint";
 import { RangeSlider } from "range_slider.slint";
+import { MapPage } from "map.slint";
 
 export component AppWindow inherits Window {
     title: "snake";
     icon: @image-url("img/snake.png");
     width: 1024px;
     height: 640px;
+
+    in-out property <int> current-subpage: 0;
+
     Image {
         image-fit:fill;
         image-rendering:pixelated;
@@ -34,14 +36,33 @@ export component AppWindow inherits Window {
             width: parent.width;
             height: 60%;
             spacing: 10px;
-            
-            RangeSlider{text: "宽度选择:"; value:40; text_color: #69eb7f;}
-            RangeSlider{text: "高度选择:"; value:40; text_color: #69eb7f;}
-            Button{text: "开始游戏";}
-            Button{text: "游戏设置";}
-            Button{text: "关于游戏";}
+
+            // 地图设置
+            for slider[idx] in [
+                { title: @tr("宽度选择"), value:40, text_color: #69eb7f },
+                { title: @tr("高度选择"), value:40, text_color: #69eb7f }
+            ]: RangeSlider{
+                title: slider.title; 
+                value:slider.value; 
+                text_color: slider.text_color;
+            }
+
+            // 游戏按钮
+            for button[idx] in [
+                { title: @tr("开始游戏") },
+                { title: @tr("游戏设置") },
+                { title: @tr("关于游戏") },
+            ]: Button{
+                title: button.title;
+                clicked => { root.current-subpage = idx + 1; }
+            }
         }
     }
-    
+
+    MapPage {
+        back => { root.current-subpage = 0 }
+        x: root.current-subpage == 1 ? 0 : parent.width;
+        animate x { duration: 225ms; easing: ease; }
+    }
     
 }

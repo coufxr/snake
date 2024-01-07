@@ -1,6 +1,8 @@
 export component Button{
-    in property <string> text: "button";
+    in property <string> title: "button";
     in property <brush> background: @linear-gradient(-45deg,#27acb8,#3b5be7);
+    callback clicked;
+
     height: 50px;
 
     Rectangle {
@@ -8,12 +10,11 @@ export component Button{
         animate background { duration:100ms; }
         border-radius: 8px;
         ta:= TouchArea{
-            clicked => {
-                // 为发现如何修改指定的方法
+            clicked => { 
+                root.clicked() 
             }
         }
         padding: 10px;
     }
-    Text {text: root.text; font-size: 14px;}
-
+    Text {text: root.title; font-size: 14px;}
 }

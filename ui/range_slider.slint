@@ -1,6 +1,6 @@
 export component RangeSlider  {
     // 带有文字的 Slider
-    in property <string> text;
+    in property <string> title;
     in property<float> max_num: 100;
     in property<float> min_num: 0;
     in property <int> text_size: 10;
@@ -22,7 +22,7 @@ export component RangeSlider  {
         HorizontalLayout {
             Text {
                 font-size: title_size * 1px;
-                text: text;
+                text: title;
                 color: text_color;
             }
             // 中间的间隔

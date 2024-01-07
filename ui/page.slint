@@ -1,20 +1,41 @@
-import { Switch, GridBox, ListView, ScrollView, VerticalBox } from "std-widgets.slint";
+export component Page inherits Rectangle {
+    in property <string> header <=> h.text;
+    in property <bool> has-back-button: false;
 
-export component Page inherits VerticalBox {
-    in property<string> title: "title";
-    in property<string> description: "description";
-    in property<bool> show-enable-switch: true;
+    in property <bool> night-mode: false;
 
-    HorizontalLayout {
+    callback back;
+    property <color> page-background-color: root.night-mode ? #122F7B : white;
+    background: page-background-color;
+
+    TouchArea {} // protect underneath controls
+
+    if (root.has-back-button) : Image {
+        x:0;
+        source: @image-url("img/back.svg");
+        image-fit: contain;
+        colorize: #6284FF;
+        y: h.y + (h.height - self.height) / 2;
+        width: 14px;
         height: 24px;
 
-        Text {
-            font-size: 20px;
-            text <=> root.title;
-        }
+        TouchArea {
+            clicked => { root.back() }
 
-        // Spacer
-        Rectangle {}
+            x:0;
+            width: 150%;
+        }
+    }
+
+    h := Text {
+        font-weight: 900;
+        font-size: 16px * 2;
+        color: root.night-mode ? #F4F6FF : black;
+        y: 46px - self.font-size;
+        x: root.has-back-button ? 24px + 16px : 0px;
+        if (root.has-back-button) : TouchArea {
+            clicked => { root.back() }
+        }
     }
 
     @children
