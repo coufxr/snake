@@ -1,15 +1,42 @@
 import { Page } from "page.slint";
 export component MapPage inherits Page {
-    has-back-button: true;
     header: @tr("返回首页");
 
-    in property <int> map_width;
-    in property <int> map_hight;
-
-    // for a in rang(): Rectangle {
-        
+    in property <int> map_width: 40;
+    in property <int> map_hight: 40;
+    in property <length> cell_size: 12px;
+    // GridLayout {
+    //     x : (root.width - self.width) / 2;
+    //     for row in map-hight: Row {
+    //         for col in map-width: Rectangle {
+    //             height: cell_size;
+    //             width: cell_size;
+    //             border-width: 1px;
+    //             border-color: red;
+    //             padding: 2px;
+    //             x: col * self.width + 8px;
+    //             background: yellow;
+    //         } 
+    //     }
     // }
-    GridLayout {
+    Rectangle{
+        x : (root.width - self.width) / 2;
+        for row in map-hight: Rectangle {
+            y: row * self.height + 8px;
+            width: map_hight * cell_size;
+            height: cell_size;
 
+            for col in map-width: Rectangle {
+                height: cell_size;
+                width: cell_size;
+                border-width: 1px;
+                border-color: red;
+                padding: 2px;
+                x: col * self.width + 8px;
+                background: yellow;
+            } 
+            
+        }
     }
+
 }

@@ -1,42 +1,44 @@
+import { HorizontalBox } from "std-widgets.slint";
 export component Page inherits Rectangle {
-    in property <string> header <=> h.text;
-    in property <bool> has-back-button: false;
+    in property <string> header : "默认文本";
 
     in property <bool> night-mode: false;
 
+    background: #3facac;
     callback back;
-    property <color> page-background-color: root.night-mode ? #122F7B : white;
-    background: page-background-color;
+    VerticalLayout{
+        alignment: start;
+        padding-top: i.height*0.55;
+        HorizontalLayout {
+            spacing: i.width;
+            padding-left: i.width;
+            i :=Image {
+                y: (h.height - self.height) / 2;
+                source: @image-url("img/back.svg");
+                image-fit: contain;
+                colorize: #6284FF;
+                width: 18px;
+                height: 24px;
 
-    TouchArea {} // protect underneath controls
-
-    if (root.has-back-button) : Image {
-        x:0;
-        source: @image-url("img/back.svg");
-        image-fit: contain;
-        colorize: #6284FF;
-        y: h.y + (h.height - self.height) / 2;
-        width: 14px;
-        height: 24px;
-
-        TouchArea {
-            clicked => { root.back() }
-
-            x:0;
-            width: 150%;
+                TouchArea {
+                    clicked => { root.back() }
+        
+                    x:0;
+                    width: 150%;
+                }
+            }
+        
+            h := Text {
+                text: header;
+                font-weight: 900;
+                font-size: 16px * 2;
+                color: root.night-mode ? #12298f : #011316;
+            }
         }
+        
+        TouchArea {} // protect underneath controls
+        
+        @children
     }
-
-    h := Text {
-        font-weight: 900;
-        font-size: 16px * 2;
-        color: root.night-mode ? #F4F6FF : black;
-        y: 46px - self.font-size;
-        x: root.has-back-button ? 24px + 16px : 0px;
-        if (root.has-back-button) : TouchArea {
-            clicked => { root.back() }
-        }
-    }
-
-    @children
+    
 }
