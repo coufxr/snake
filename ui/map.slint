@@ -19,8 +19,8 @@ export component MapPage inherits Page {
     //         } 
     //     }
     // }
-    Rectangle{
-        x : (root.width - self.width) / 2;
+    Rectangle {
+        x: (root.width - self.width) / 2;
         for row in map-hight: Rectangle {
             y: row * self.height + 8px;
             width: map_hight * cell_size;
@@ -34,9 +34,7 @@ export component MapPage inherits Page {
                 padding: 2px;
                 x: col * self.width + 8px;
                 background: yellow;
-            } 
-            
+            }
         }
     }
-
 }

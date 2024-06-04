@@ -11,28 +11,30 @@ export component AppWindow inherits Window {
     in-out property <int> current-subpage: 0;
 
     Image {
-        image-fit:fill;
-        image-rendering:pixelated;
+        image-fit: fill;
+        image-rendering: pixelated;
         source: @image-url("img/yewanxingkongshan_5k.jpg");
         width: parent.width;
         height: parent.height;
     }
+
     VerticalLayout {
         width: 240px;
         height: 480px;
-        x: parent.width/2 - self.width/2;
-        y: parent.height/2 - self.height/2;
+        x: parent.width / 2 - self.width / 2;
+        y: parent.height / 2 - self.height / 2;
 
-        VerticalLayout{
+        VerticalLayout {
             width: parent.width;
             Text {
-                x:parent.width/2 - self.width/2;
+                x: parent.width / 2 - self.width / 2;
                 width: 180px;
                 text: "SNAKE";
                 font-size: 48px;
             }
         }
-        VerticalLayout{
+
+        VerticalLayout {
             width: parent.width;
             height: 60%;
             spacing: 10px;
@@ -41,9 +43,9 @@ export component AppWindow inherits Window {
             for slider[idx] in [
                 { title: @tr("宽度选择"), value:40, text_color: #69eb7f },
                 { title: @tr("高度选择"), value:40, text_color: #69eb7f }
-            ]: RangeSlider{
-                title: slider.title; 
-                value:slider.value; 
+            ]: RangeSlider {
+                title: slider.title;
+                value: slider.value;
                 text_color: slider.text_color;
             }
 
@@ -52,17 +54,23 @@ export component AppWindow inherits Window {
                 { title: @tr("开始游戏") },
                 { title: @tr("游戏设置") },
                 { title: @tr("关于游戏") },
-            ]: Button{
+            ]: Button {
                 title: button.title;
-                clicked => { root.current-subpage = idx + 1; }
+                clicked => {
+                    root.current-subpage = idx + 1;
+                }
             }
         }
     }
 
     MapPage {
-        back => { root.current-subpage = 0 }
+        back => {
+            root.current-subpage = 0
+        }
         x: root.current-subpage == 1 ? 0 : parent.width;
-        animate x { duration: 225ms; easing: ease; }
+        animate x {
+            duration: 225ms;
+            easing: ease;
+        }
     }
-    
 }

@@ -1,18 +1,18 @@
 import { HorizontalBox } from "std-widgets.slint";
 export component Page inherits Rectangle {
-    in property <string> header : "默认文本";
+    in property <string> header: "默认文本";
 
     in property <bool> night-mode: false;
 
     background: #3facac;
     callback back;
-    VerticalLayout{
+    VerticalLayout {
         alignment: start;
-        padding-top: i.height*0.55;
+        padding-top: i.height * 0.55;
         HorizontalLayout {
             spacing: i.width;
             padding-left: i.width;
-            i :=Image {
+            i := Image {
                 y: (h.height - self.height) / 2;
                 source: @image-url("img/back.svg");
                 image-fit: contain;
@@ -21,13 +21,14 @@ export component Page inherits Rectangle {
                 height: 24px;
 
                 TouchArea {
-                    clicked => { root.back() }
-        
-                    x:0;
+                    clicked => {
+                        root.back()
+                    }
+                    x: 0;
                     width: 150%;
                 }
             }
-        
+
             h := Text {
                 text: header;
                 font-weight: 900;
@@ -35,10 +36,10 @@ export component Page inherits Rectangle {
                 color: root.night-mode ? #12298f : #011316;
             }
         }
-        
-        TouchArea {} // protect underneath controls
-        
+
+        // protect underneath controls
+        TouchArea { }
+
         @children
     }
-    
 }
